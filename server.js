@@ -94,11 +94,28 @@ addRole = () => {
     inquirer.prompt([
         {
             type: "input",
-            message: "what is the name of the new role?",
-            name: "newRole"
-        }
+            message: "what is the title of the new role?",
+            name: "newRoleTitle"
+        },
+        {
+            type: "number",
+            message: "what is the salary of the new role?",
+            name: "newRoleSalary"
+        },
+        {
+            type: "number",
+            message: "what department does this role belong to?",
+            name: "newRoleDepartment"
+        },
     ])
-    .then((ans) => )
+    .then((ans) => {
+        const newRoleTitle = ans.newRoleTitle;
+        const newRoleSal = ans.newRoleSalary;
+        const newRoleD = ans.newRoleDepartment;
+        database.query('INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?);', newRoleTitle, newRoleS, newRoleD, (err, data) => {err ? console.error : console.log('good job it worked')
+        startMenu();
+        }) 
+    })
 }
 addEmployee = () => {}
 updateEmployee = () => {}
