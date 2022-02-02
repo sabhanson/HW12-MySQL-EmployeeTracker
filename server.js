@@ -31,15 +31,15 @@
 // WHEN I choose to update an employee role THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 //TODO:
 
-const { star } = require("cli-spinners");
-const express = require("express");
+// const { star } = require("cli-spinners");
+// const express = require("express");
 const inquirer = require('inquirer');
-const { endsWith } = require("lodash");
-const app = express();
+// const { endsWith } = require("lodash");
+// const app = express();
 const mysql2 = require("mysql2");
-const PORT = process.env.PORT || 3001;
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+// const PORT = process.env.PORT || 3001;
+// app.use(express.urlencoded({ extended: false }));
+// app.use(express.json());
 
 
 const database = mysql2.createConnection(
@@ -61,15 +61,15 @@ viewDepartments = () => {
 }
 
 viewRoles = () => {
-    database.query('SELECT * FROM roles',(err, data) => {
-        err ? console.error : console.table(data)
+    database.query('SELECT roles.id, roles.title, roles.salary, departments.department_name FROM roles JOIN departments ON roles.department_id = departments.id;',(err, data) => {
+        err ? console.error(err) : console.table(data)
         startMenu();
     })
 }
 
 viewEmployees = () => {
-    database.query('SELECT * FROM employees',(err, data) => {
-        err ? console.error : console.table(data)
+    database.query('SELECT e.id, e.first_name, e.last_name, roles.title, departments.department_name, roles.salary, CONCAT(m.first_name, " ", m.last_name) AS Manager FROM employees e JOIN roles ON e.role_id = roles.id JOIN departments ON roles.department_id = departments.id INNER JOIN employees m ON m.id = e.manager_id;',(err, data) => {
+        err ? console.error(err) : console.table(data)
         startMenu();
     })
 }
@@ -84,14 +84,20 @@ addDepartment = () => {
     ])
     .then((ans) => {
         const newDepart = ans.newDepartment;
-        database.query('INSERT INTO departments (department_name) VALUES (?);', newDepart, (err,data) => {err ? console.error : console.log()
+        database.query('INSERT INTO departments (department_name) VALUES (?);', newDepart, (err,result) => {err ? console.error :
         startMenu();
         })
     })
 }
 
 addRole = () => {
-    inquirer.prompt([
+    database.query('SELECT * FROM departments', (err,data) => {
+        if (err) {
+            console.error(err)
+        }   const departmentArray = data.map(function(departments) {
+                return {name: departments.department_name, value: departments.id}
+            })
+        inquirer.prompt([
         {
             type: "input",
             message: "what is the title of the new role?",
@@ -103,22 +109,114 @@ addRole = () => {
             name: "newRoleSalary"
         },
         {
-            type: "number",
+            type: "list",
             message: "what department does this role belong to?",
-            name: "newRoleDepartment"
+            name: "newRoleDepartment",
+            choices: departmentArray
         },
     ])
     .then((ans) => {
         const newRoleTitle = ans.newRoleTitle;
-        const newRoleSal = ans.newRoleSalary;
-        const newRoleD = ans.newRoleDepartment;
-        database.query('INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?);', newRoleTitle, newRoleS, newRoleD, (err, data) => {err ? console.error : console.log('good job it worked')
+        const newRoleSalary = ans.newRoleSalary;
+        const newRoleDepartment = ans.newRoleDepartment
+        database.query(`INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?);`, [newRoleTitle, newRoleSalary, newRoleDepartment], (err, result) => {err ? console.error(err) : console.log(result)
         startMenu();
         }) 
     })
+});
 }
-addEmployee = () => {}
-updateEmployee = () => {}
+
+addEmployee = () => {
+    database.query('SELECT * FROM roles', (err,data) => {
+        if (err) {
+            console.error(err)
+        }   const roleArray = data.map(function(roles) {
+                return {name: roles.title, value: roles.id}
+            })
+    database.query('SELECT * FROM employees', (err,data) => {
+        if (err) {
+            console.error(err)
+        } const employeeArray = data.map(function(employees) {
+            return {name: employees.first_name + ` ` + employees.last_name, value: employees.id}
+        })
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "what is the employee's first name?",
+            name: "newEmployeeFN",
+        },
+        {
+            type: "input",
+            message: "what is the employee's last name?",
+            name: "newEmployeeLN",
+        },
+        {
+            type: "list",
+            message: "what is the employee's role?",
+            choices: roleArray,
+            name: "newEmployeeRole",
+        },
+        {
+            type: "list",
+            message: "who is the employee's manager?",
+            choices: employeeArray,
+            name: "newEmployeeManager",
+        },
+    ])
+    .then((ans) => {
+        const newEmployeeFN = ans.newEmployeeFN;
+        const newEmployeeLN = ans.newEmployeeLN;
+        const newEmployeeRole = ans.newEmployeeRole;
+        const newEmployeeManager = ans.newEmployeeManager;
+        database.query('INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?);', [newEmployeeFN, newEmployeeLN, newEmployeeRole, newEmployeeManager], (err,result) => {err ? console.error : console.log(result)
+        startMenu();
+        })
+    })
+});
+});
+}
+
+
+updateEmployee = () => {
+    database.query('SELECT * FROM employees', (err,data) => {
+        if (err) {
+            console.error(err)
+        } const employeeArray = data.map(function(employees) {
+            return {name: employees.first_name + ` ` + employees.last_name, value: employees.id}
+        })
+    database.query('SELECT * FROM roles', (err,data) => {
+        if (err) {
+            console.error(err)
+        }   const roleArray = data.map(function(roles) {
+            return {name: roles.title, value: roles.id}
+        })
+    inquirer.prompt([
+        {
+            type: "list",
+            message: "what employee do you want to update?",
+            choices: employeeArray,
+            name: "updateEmployee",
+        },
+        {
+            type: "list",
+            message: "what is their new role?",
+            choices: roleArray,
+            name: "updateEmployeeRole",
+        },
+    ])
+    .then((ans) => {
+        console.log(ans)
+        const updateEmployee = ans.updateEmployee;
+        const updateRole = ans.updateEmployeeRole;
+        database.query('UPDATE employees SET role_id = ? WHERE id = ?;', [updateRole, updateEmployee], (err,result) => {err ? console.error : console.log(result)
+            startMenu();
+        })
+    })
+});
+});
+}
+
+
 quit = () => {
     database.end();
 }
@@ -129,7 +227,7 @@ inquirer.prompt([
       type: "list",
       message: "What would you like to do?",
       name: "startMenu",
-      choices: ["View all departments","View all roles","View all employees", 'Add a department',"Add a role","Add an employee","Update an employee role","Quit"]
+      choices: ["View all departments","View all roles","View all employees", 'Add a department',"Add a role","Add an employee","Update an employee's role","Update an employee's manager","View employees by manager","View employees by department","Quit"]
     },
 ])
 .then((ans) => {
@@ -152,13 +250,21 @@ inquirer.prompt([
         case "Add an employee":
             addEmployee();
             break;
-        case "Update an employee":
+        case "Update an employee's role":
             updateEmployee();
             break;
-        case "Quit":
-            quit();
-
+        // THESE ARE THE BONUS ONES
+        case "Update an employee's manager":
+            updateEmployeeManager();
+            break;
+        case "View employees by manager":
+            viewEmpByManager();
+            break;
+        case "View employees by department":
+            viewEmpByDepart();
+            break;
         default:
+            quit();
             break;
     }
 })}
