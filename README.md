@@ -9,6 +9,7 @@ I created this Employee Tracker for a company to be able to manage their employe
 - [License](#license)
 - [Contributing](#contributing)
 - [Tests](#tests)
+- [Badges](#badges)
 - [Questions](#questions)
 - [Credits](#credits)
 
@@ -88,6 +89,10 @@ To contribute, please contact me via [Github](https://www.github.com/sabhanson) 
 
 ## Tests
 Testing was all self-done in the terminal.
+
+## Badges
+
+![GitHub followers](https://img.shields.io/github/followers/sabhanson?style=social)
 
 ## Questions
 Contact me via [Github](https://www.github.com/sabhanson) or [email](mailto:sabhanson7@gmail.com)
