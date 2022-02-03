@@ -1,7 +1,7 @@
 # MySQL Employee Tracker [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Description
-I created this Employee Tracker for a company to use to be able to manage their employee database. They can create various departments, roles within those departments, and employees within those roles. The user can also update employee roles in the database to reflect actual changes within the company.
+I created this Employee Tracker for a company to be able to manage their employee database. They can create various departments, roles within those departments, and employees within those roles. The user can also update employee roles in the database to reflect actual changes within the company.
 
 ## Table of Contents
 - [Installation](#installation)
@@ -14,8 +14,9 @@ I created this Employee Tracker for a company to use to be able to manage their 
 
 ## Installation
       
-To install this application:
 [Watch this demonstration video for a step-by-step installation walkthrough](https://www.youtube.com/watch?v=9ZBxpcoHhV4)
+
+OR   
 - Clone [the repo](https://github.com/sabhanson/HW12-MySQL-EmployeeTracker) from my Github to your local machine
 - Open VSCode and run the following command in the built-in terminal to install the necessary node packages
 ``` 
