@@ -1,4 +1,3 @@
-
 # MySQL Employee Tracker [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Description
@@ -11,12 +10,21 @@ I created this Employee Tracker for a company to use to be able to manage their 
 - [Contributing](#contributing)
 - [Tests](#tests)
 - [Questions](#questions)
+- [Credits](#credits)
 
 ## Installation
-CoPYPASTA FROM NOTE TAKER
+      
+To install this application's code:
+- Clone [the repo](https://github.com/sabhanson/HW12-MySQL-EmployeeTracker) from my Github to your local machine
+- Open VSCode and run the following command in the built-in terminal to install the necessary node packages
+``` 
+npm install
+```
+
+- Congrats, you have successfully installed this application  ✅
 
 ## Usage
-Run this application in your terminal, there is no deployment of this application
+Run this application in your terminal, there is no deployment of this application.
 
 ## License
 <p>
@@ -45,7 +53,7 @@ MIT License
   </p>
 
 ## Contributing
-To contribute, please contact me via GH or EM
+To contribute, please contact me via [Github](https://www.github.com/sabhanson) or [email](mailto:sabhanson7@gmail.com)
 
 ## Tests
 Testing was all self-done in the terminal.
