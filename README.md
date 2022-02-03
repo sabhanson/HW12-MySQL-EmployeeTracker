@@ -17,7 +17,7 @@ I created this Employee Tracker for a company to be able to manage their employe
 [Watch this demonstration video for a step-by-step installation walkthrough](https://www.youtube.com/watch?v=9ZBxpcoHhV4)
 
 OR   
-- Clone [the repo](https://github.com/sabhanson/HW12-MySQL-EmployeeTracker) from my Github to your local machine
+- Clone [this repo](https://github.com/sabhanson/HW12-MySQL-EmployeeTracker) from my Github to your local machine
 - Open VSCode and run the following command in the built-in terminal to install the necessary node packages
 ``` 
 npm install
@@ -51,9 +51,9 @@ Follow the Installation instructions above then use the following keystrokes to 
 - ↕️ Up and Down arrows to scroll through the available options
 - `enter` key to select an option
 - 🔤 letter keys to type in answers to prompts
-- 🔢 number keys to type in answers to prompts
+- 🔢 number keys to type in answers to prompts    
 
-# Here is a screenshot of the Employee Tracker Application
+This is what the Employee Tracker Application looks like when run in the VSCode built-in terminal
 
 ![Screenshot of Employee Tracker Application](/assets/EmpTracker.png)  
 
