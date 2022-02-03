@@ -14,7 +14,7 @@ I created this Employee Tracker for a company to be able to manage their employe
 
 ## Installation
       
-[Watch this demonstration video for a step-by-step installation walkthrough](https://www.youtube.com/watch?v=9ZBxpcoHhV4)
+[Watch this video for a step-by-step demonstration, including installation and usage instructions](https://www.youtube.com/watch?v=9ZBxpcoHhV4)
 
 OR   
 - Clone [this repo](https://github.com/sabhanson/HW12-MySQL-EmployeeTracker) from my Github to your local machine
