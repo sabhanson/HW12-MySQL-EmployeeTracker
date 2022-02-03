@@ -14,17 +14,36 @@ I created this Employee Tracker for a company to use to be able to manage their 
 
 ## Installation
       
-To install this application's code:
+To install this application:
 - Clone [the repo](https://github.com/sabhanson/HW12-MySQL-EmployeeTracker) from my Github to your local machine
 - Open VSCode and run the following command in the built-in terminal to install the necessary node packages
 ``` 
 npm install
 ```
-
-- Congrats, you have successfully installed this application  ✅
+- Now you need to run the SQL files to actually create the database and tables
+```
+mysql -u root -p{YOURPASSWORDHERE}
+```
+```
+SOURCE schema.sql;
+```
+```
+SOURCE seeds.sql
+```
+- Now the database should have been created with the following tables: departments, roles, and employees
+- Now, stop the SQL commands by running
+```
+quit;
+```
+- Now open the server.js in the integrated terminal and run the following command
+```
+node server.js
+```
+- Congrats, you have successfully installed this application and are ready to navigate through the Employee Tracker  ✅
 
 ## Usage
-Run this application in your terminal, there is no deployment of this application.
+Follow the Installation instructions above then use the following keystrokes to navigate the application
+- 
 
 ## License
 <p>
